@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Training Exercise Form</title>
+</head>
+<body>
+<h1 th:text="${exercise.id} != null ? 'Edit Exercise' : 'New Exercise'"></h1>
+<form th:action="@{/trainingexercises/save}" th:object="${exercise}" method="post">
+    <input type="hidden" th:field="*{id}" />
+
+    <label>Session:</label>
+    <select th:field="*{trainingSessionId}">
+        <option th:each="s : ${sessions}" th:value="${s.id}" th:text="${s.id}"></option>
+    </select>
+    <span th:if="${#fields.hasErrors('trainingSessionId')}" th:errors="*{trainingSessionId}"></span>
+    <br/>
+
+    <label>Exercise Type:</label>
+    <select th:field="*{exerciseTypeId}">
+        <option th:each="t : ${types}" th:value="${t.id}" th:text="${t.name}"></option>
+    </select>
+    <span th:if="${#fields.hasErrors('exerciseTypeId')}" th:errors="*{exerciseTypeId}"></span>
+    <br/>
+
+    <label>Weight:</label>
+    <input type="number" th:field="*{weight}" min="1" />
+    <span th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}"></span>
+    <br/>
+
+    <label>Sets:</label>
+    <input type="number" th:field="*{sets}" min="1" />
+    <span th:if="${#fields.hasErrors('sets')}" th:errors="*{sets}"></span>
+    <br/>
+
+    <label>Repetitions:</label>
+    <input type="number" th:field="*{repetitions}" min="1" />
+    <span th:if="${#fields.hasErrors('repetitions')}" th:errors="*{repetitions}"></span>
+    <br/>
+
+    <button type="submit">Save</button>
+</form>
+<a th:href="@{/trainingexercises}">Back</a>
+</body>
+</html>

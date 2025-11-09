@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Exercise Types</title>
+</head>
+<body>
+<h1>Exercise Types</h1>
+<a th:href="@{/exercisetypes/new}">Add New</a>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="type : ${exercisetypes}">
+        <td th:text="${type.id}"></td>
+        <td th:text="${type.name}"></td>
+        <td>
+            <a th:href="@{/exercisetypes/edit/{id}(id=${type.id})}">Edit</a>
+            <a th:href="@{/exercisetypes/delete/{id}(id=${type.id})}">Delete</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

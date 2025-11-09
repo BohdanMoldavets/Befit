@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Training Exercises</title>
+</head>
+<body>
+<h1>Training Exercises</h1>
+<a th:href="@{/trainingexercises/new}">Add New</a>
+<table border="1">
+  <tr>
+    <th>ID</th>
+    <th>Session</th>
+    <th>Exercise Type</th>
+    <th>Weight</th>
+    <th>Sets</th>
+    <th>Repetitions</th>
+    <th>Actions</th>
+  </tr>
+  <tr th:each="ex : ${exercises}">
+    <td th:text="${ex.id}"></td>
+    <td th:text="${ex.trainingSessionId}"></td>
+    <td th:text="${ex.exerciseTypeId}"></td>
+    <td th:text="${ex.weight}"></td>
+    <td th:text="${ex.sets}"></td>
+    <td th:text="${ex.repetitions}"></td>
+    <td>
+      <a th:href="@{/trainingexercises/edit/{id}(id=${ex.id})}">Edit</a>
+      <a th:href="@{/trainingexercises/delete/{id}(id=${ex.id})}">Delete</a>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Training Sessions</title>
+</head>
+<body>
+<h1>Training Sessions</h1>
+<a th:href="@{/trainingsessions/new}">Add New</a>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="session : ${sessions}">
+        <td th:text="${session.id}"></td>
+        <td th:text="${session.startTime}"></td>
+        <td th:text="${session.endTime}"></td>
+        <td>
+            <a th:href="@{/trainingsessions/edit/{id}(id=${session.id})}">Edit</a>
+            <a th:href="@{/trainingsessions/delete/{id}(id=${session.id})}">Delete</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

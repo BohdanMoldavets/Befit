@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Training Session Form</title>
+</head>
+<body>
+<h1 th:text="${session.id} != null ? 'Edit Session' : 'New Session'"></h1>
+<form th:action="@{/trainingsessions/save}" th:object="${session}" method="post">
+    <input type="hidden" th:field="*{id}" />
+    <label>Start Time:</label>
+    <input type="datetime-local" th:field="*{startTime}" />
+    <span th:if="${#fields.hasErrors('startTime')}" th:errors="*{startTime}"></span>
+    <br/>
+    <label>End Time:</label>
+    <input type="datetime-local" th:field="*{endTime}" />
+    <span th:if="${#fields.hasErrors('endTime')}" th:errors="*{endTime}"></span>
+    <br/>
+    <button type="submit">Save</button>
+</form>
+<a th:href="@{/trainingsessions}">Back</a>
+</body>
+</html>
