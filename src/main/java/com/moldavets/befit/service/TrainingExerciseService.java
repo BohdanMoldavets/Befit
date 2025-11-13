@@ -1,6 +1,8 @@
 package com.moldavets.befit.service;
 
+import com.moldavets.befit.mapper.ExerciseTypeMapper;
 import com.moldavets.befit.mapper.TrainingExerciseMapper;
+import com.moldavets.befit.mapper.TrainingSessionMapper;
 import com.moldavets.befit.model.TrainingExercise;
 import com.moldavets.befit.repository.TrainingExerciseRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +15,8 @@ import java.util.List;
 public class TrainingExerciseService {
 
     private final TrainingExerciseRepository trainingExerciseRepository;
+    private final ExerciseTypeService exerciseTypeService;
+    private final TrainingSessionService trainingSessionService;
 
     public List<TrainingExercise> findAll() {
         return trainingExerciseRepository.findAll()
@@ -22,12 +26,18 @@ public class TrainingExerciseService {
     }
 
     public TrainingExercise findById(Long id) {
-        var storedEntity = trainingExerciseRepository.findById(id).orElseThrow(() -> new RuntimeException("TrainingExercise not found"));
+        var storedEntity = trainingExerciseRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("TrainingExercise not found"));
         return TrainingExerciseMapper.INSTANCE.map(storedEntity);
     }
 
     public TrainingExercise save(TrainingExercise exercise) {
-        var storedEntity = trainingExerciseRepository.save(TrainingExerciseMapper.INSTANCE.map(exercise));
+        var trainingSession = trainingSessionService.findById(exercise.getTrainingSessionId());
+        var exerciseType = exerciseTypeService.findById(exercise.getExerciseTypeId());
+        var trainingExerciseEntity = TrainingExerciseMapper.INSTANCE.map(exercise);
+        trainingExerciseEntity.setExerciseType(ExerciseTypeMapper.INSTANCE.map(exerciseType));
+        trainingExerciseEntity.setTrainingSession(TrainingSessionMapper.INSTANCE.map(trainingSession));
+        var storedEntity = trainingExerciseRepository.save(trainingExerciseEntity);
         return TrainingExerciseMapper.INSTANCE.map(storedEntity);
     }
 

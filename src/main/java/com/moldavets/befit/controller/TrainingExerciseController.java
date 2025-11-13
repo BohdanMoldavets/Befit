@@ -30,7 +30,8 @@ public class TrainingExerciseController {
     }
 
     @GetMapping("/new")
-    public String createForm(TrainingExercise exercise, Model model) {
+    public String createForm(Model model) {
+        model.addAttribute("exercise", new TrainingExercise());
         model.addAttribute("sessions", trainingSessionService.findAll());
         model.addAttribute("types", exerciseTypeService.findAll());
         return "trainingexercises/form";

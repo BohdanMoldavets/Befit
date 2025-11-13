@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>BeFit - Home</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container mt-5 text-center">
+  <div class="card shadow-sm p-5 bg-white">
+    <h1 class="mb-4">🏋️‍♂️ Welcome to <span class="text-primary">BeFit</span></h1>
+
+    <div th:if="${username}">
+      <h4 class="mb-4">Hello, <span class="text-success" th:text="${username}">User</span>!</h4>
+      <p class="lead mb-4">Start tracking your workouts and exercises today.</p>
+
+      <div class="d-flex justify-content-center gap-3">
+        <a th:href="@{/exercisetypes}" class="btn btn-outline-primary btn-lg">Exercise Types</a>
+        <a th:href="@{/trainingsessions}" class="btn btn-outline-success btn-lg">Training Sessions</a>
+        <a th:href="@{/trainingexercises}" class="btn btn-outline-info btn-lg">Training Exercises</a>
+      </div>
+    </div>
+
+    <div th:if="${username == null}">
+      <p class="lead mb-4">Create an account to manage your training progress and exercises.</p>
+      <div class="d-flex justify-content-center gap-3">
+        <a th:href="@{/login}" class="btn btn-primary btn-lg">Login</a>
+        <a th:href="@{/register}" class="btn btn-outline-secondary btn-lg">Register</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

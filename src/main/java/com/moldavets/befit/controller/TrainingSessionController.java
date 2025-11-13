@@ -26,7 +26,8 @@ public class TrainingSessionController {
     }
 
     @GetMapping("/new")
-    public String createForm(TrainingSession session) {
+    public String createForm(Model model) {
+        model.addAttribute("session", new TrainingSession());
         return "trainingsessions/form";
     }
 

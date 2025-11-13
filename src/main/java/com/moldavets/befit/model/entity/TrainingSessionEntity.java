@@ -1,6 +1,7 @@
 package com.moldavets.befit.model.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -19,6 +20,10 @@ public class TrainingSessionEntity extends AbstractAuditingEntity<Long> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
+
+    @NotBlank
+    @Column(name = "NAME")
+    private String name;
 
     @NotNull
     @Column(name = "START_TIME")
