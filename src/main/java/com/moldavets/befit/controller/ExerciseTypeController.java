@@ -4,6 +4,7 @@ import com.moldavets.befit.model.ExerciseType;
 import com.moldavets.befit.service.ExerciseTypeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,11 +26,13 @@ public class ExerciseTypeController {
         return "exercisetypes/list";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/new")
     public String createForm(ExerciseType exerciseType) {
         return "exercisetypes/form";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/save")
     public String save(@Valid ExerciseType exerciseType, BindingResult result) {
         if (result.hasErrors()) {
@@ -39,12 +42,14 @@ public class ExerciseTypeController {
         return "redirect:/exercisetypes";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Long id, Model model) {
         model.addAttribute("exerciseType", exerciseTypeService.findById(id));
         return "exercisetypes/form";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         exerciseTypeService.deleteById(id);

@@ -4,6 +4,7 @@ import com.moldavets.befit.model.TrainingSession;
 import com.moldavets.befit.service.TrainingSessionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,12 +26,14 @@ public class TrainingSessionController {
         return "trainingsessions/list";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/new")
     public String createForm(Model model) {
         model.addAttribute("session", new TrainingSession());
         return "trainingsessions/form";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/save")
     public String save(@Valid TrainingSession session, BindingResult result) {
         if (result.hasErrors()) {
@@ -41,12 +44,14 @@ public class TrainingSessionController {
         return "redirect:/trainingsessions";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Long id, Model model) {
         model.addAttribute("session", trainingSessionService.findById(id));
         return "trainingsessions/form";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         trainingSessionService.deleteById(id);

@@ -6,6 +6,7 @@ import com.moldavets.befit.service.TrainingExerciseService;
 import com.moldavets.befit.service.TrainingSessionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,6 +30,7 @@ public class TrainingExerciseController {
         return "trainingexercises/list";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/new")
     public String createForm(Model model) {
         model.addAttribute("exercise", new TrainingExercise());
@@ -37,6 +39,7 @@ public class TrainingExerciseController {
         return "trainingexercises/form";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/save")
     public String save(@Valid TrainingExercise exercise, BindingResult result, Model model) {
         if (result.hasErrors()) {
@@ -48,6 +51,7 @@ public class TrainingExerciseController {
         return "redirect:/trainingexercises";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Long id, Model model) {
         model.addAttribute("exercise", trainingExerciseService.findById(id));
@@ -56,6 +60,7 @@ public class TrainingExerciseController {
         return "trainingexercises/form";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         trainingExerciseService.deleteById(id);

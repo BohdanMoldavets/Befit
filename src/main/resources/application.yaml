@@ -15,3 +15,11 @@ spring:
     show-sql: true
 server:
   port: 8080
+
+features:
+  security:
+    admin:
+      login: ${SECURITY_ADMIN_USER_LOGIN:admin}
+      password: ${SECURITY_ADMIN_USER_PASSWORD:admin}
+    path:
+      allowed: ${SECURITY_PATH_ALLOWED:/, /register, /login, /css/**, /js/**, /images/**, /webjars/**}
